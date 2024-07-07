@@ -53,8 +53,45 @@ const getServiceById = async (req, res) => {
    res.json(service)
 }
 
+const updateService = async (req, res) => {
+    const { id } = req.params
+    // Validar un object id
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+         const error = new Error('El ID no es válido')
+ 
+     return res.status(400).json({
+         msg: error.message
+     })
+ }
+ 
+    // Validar que exista
+    const service = await Services.findById(id)
+    if(!service) {
+     const error = new Error('El Servicio no existe')
+ 
+     return res.status(404).json({
+         msg: error.message
+     })
+ }
+    // Escribimos en el objeto los valores nuevos 
+    service.name = req.body.name || service.name
+    service.price = req.body.price || service.price
+
+    try {
+        await service.save()
+        res.json({
+            msg: 'El servicio se actualizó correctamente'
+        })
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
 export {
     createService,
     getServices,
-    getServiceById
+    getServiceById,
+    updateService
 }

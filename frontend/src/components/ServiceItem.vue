@@ -1,6 +1,6 @@
 <script setup>
-    import { formatCurrency } from '../helpers'
-    import { useAppointmentsStore } from '../stores/appointments'
+    import { formatCurrency } from '@/helpers';
+    import { useAppointmentsStore } from '@/stores/appointments';
 
     const appointments = useAppointmentsStore()
 

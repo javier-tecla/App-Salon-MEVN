@@ -50,6 +50,7 @@
                     i18n="es-mx"
                     as-single
                     no-input
+                    disable-in-range
                     :formatter="formatter"
                     v-model="appointments.date"
                 />

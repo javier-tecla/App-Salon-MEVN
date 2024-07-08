@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { uniqueId } from '../utils/index.js'
+import CryptoJS from 'crypto-js'
 
 const userSchema = mongoose.Schema({
     name: {
@@ -31,6 +32,19 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     }
+})
+
+userSchema.pre('save', async function (next) {
+    if(!this.isModified('password')) {
+        next()
+    }
+    const salt = CryptoJS.lib.WordArray.random(128 / 8).toString();
+    this.salt = salt;
+
+    this.password = CryptoJS.SHA256(this.password + salt).toString();
+
+    next();
+    
 })
 
 const User = mongoose.model('User', userSchema)

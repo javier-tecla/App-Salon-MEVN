@@ -85,12 +85,19 @@ const login = async (req, res) => {
     // Revisar si el usuario confirmo su cuenta
     if(!user.verified) {
         const error = new Error('Tu cuenta no ha sido confirmada aún')
-        return res.status(401).json({msg: error.message})
-        
+        return res.status(401).json({msg: error.message})  
     }
 
     // Comprobar el password
-    
+    if(await user.checkPassword(password)) {
+        res.json({
+          msg:'Ususario Autenticado'
+        })
+    } else {
+        const error = new Error('El password es incorrecto')
+        return res.status(401).json({msg: error.message})
+        
+    }
 }
 
 export {

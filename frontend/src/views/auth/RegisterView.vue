@@ -1,5 +1,14 @@
 <script setup>
+    import AuthAPI from '../../api/AuthAPI';
 
+
+    const handleSubmit = async ({password_confirm, ...data}) => {
+        try {
+            await AuthAPI.register(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 </script>
 
 
@@ -11,6 +20,7 @@
         type="form"
         :actions="false"
         incomplete-message="No se pudo enviar, revisa las notificaciones"
+        @submit="handleSubmit"
     >
         <FormKit
             type="text"

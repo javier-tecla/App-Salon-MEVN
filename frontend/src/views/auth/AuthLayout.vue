@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router';
 
 
 <template>
-    <div class="mx-auto lg:w-4/5 mt-20">
+    <div class="mx-auto lg:w-3/5 mt-20">
 
         <RouterView />
 

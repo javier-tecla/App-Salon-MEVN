@@ -1,5 +1,6 @@
 <script setup>
     import { inject } from 'vue'
+    import { reset } from '@formkit/vue'
     import AuthAPI from '../../api/AuthAPI'
 
     const toast =  inject('toast')
@@ -13,6 +14,7 @@
                 message: data.msg,
                 type: 'success'
            })
+           reset('registerForm')
         } catch (error) {
             console.log(error)
         }
@@ -25,6 +27,7 @@
     <p class="text-2xl text-white text-center my-5">Crea una cuenta en Appsalón</p>
 
     <FormKit
+        id="registerForm"
         type="form"
         :actions="false"
         incomplete-message="No se pudo enviar, revisa las notificaciones"

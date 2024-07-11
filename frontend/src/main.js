@@ -11,18 +11,16 @@ import router from './router'
 
 import "vue-toast-notification/dist/theme-sugar.css"
 
-const toast = useToast({
+const $toast = useToast({
     duration: 5000,
     position: 'top-right'
 })
 
-toast.open({
-    message: 'Probando Toast',
-    type: 'success'
-})
+
 
 const app = createApp(App)
 
+app.provide('toast', $toast)
 app.use(createPinia())
 app.use(plugin, defaultConfig(config))
 app.use(router)

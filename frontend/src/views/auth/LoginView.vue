@@ -1,12 +1,45 @@
 <script setup>
-
+    const handleSubmit = async(data) => {
+        console.log(data)
+    }
 </script>
 
 
 <template>
-    <div>
-        <h1>Desde LoginView</h1>
+   <h1 class="text-6xl font-extrabold text-white text-center mt-10">Iniciar Sesión</h1>
+    <p class="text-2xl text-white text-center my-5">Si tienes una cuenta, inicia sesión</p>
 
-        
-    </div>
+    <FormKit
+        id="loginForm"
+        type="form"
+        :actions="false"
+        incomplete-message="No se pudo enviar, revisa las notificaciones"
+        @submit="handleSubmit"
+    >
+    
+        <FormKit
+            type="email"
+            label="Email"
+            name="email"
+            placeholder="Email de Usuario"
+            validation="required|email"
+            :validation-messages="{
+                required: 'El Email es obligatorio',
+                email: 'Email no válido'
+            }"
+        />
+
+        <FormKit
+            type="password"
+            label="password"
+            name="password"
+            placeholder="Password de Usuario"
+            validation="required"
+            :validation-messages="{
+                required: 'El Password es obligatorio'
+            }"
+        />
+
+            <FormKit type="submit">Iniciar Sesión</FormKit>
+    </FormKit>
 </template>

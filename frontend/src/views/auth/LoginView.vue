@@ -1,6 +1,19 @@
 <script setup>
-    const handleSubmit = async(data) => {
-        console.log(data)
+import { inject } from 'vue'
+    import AuthAPI from '../../api/AuthAPI'
+
+    const toast = inject('toast')
+
+    const handleSubmit = async(formdata) => {
+        try {
+            const { data } = await AuthAPI.login(formdata)
+            console.log(data)
+        } catch (error) {
+           toast.open({
+            message: error.response.data.msg,
+                type: 'error'
+           }) 
+        }
     }
 </script>
 

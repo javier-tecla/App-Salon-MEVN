@@ -102,8 +102,14 @@ const login = async (req, res) => {
     }
 }
 
+const user = async (req, res) => {
+
+  console.log('desde user')
+}
+
 export {
      register,
      verifyAccount,
-     login
+     login,
+     user
 }

@@ -6,8 +6,8 @@ import { inject } from 'vue'
 
     const handleSubmit = async(formdata) => {
         try {
-            const { data } = await AuthAPI.login(formdata)
-            console.log(data)
+            const { data: { token } } = await AuthAPI.login(formdata)
+            localStorage.setItem('AUTH_TOKEN', token)
         } catch (error) {
            toast.open({
             message: error.response.data.msg,

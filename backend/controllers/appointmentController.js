@@ -1,8 +1,16 @@
-
+import Appointment from "../models/Appointment.js"
 
 const createAppointment = async (req, res) => {
+    const appointment = req.body
+    appointment.user = req.user._id.toString()
+
     try {
-        console.log('desde createAppointment')
+        const newAppointment = new Appointment(appointment)
+        await newAppointment.save()
+
+        res.json({
+            msg: 'Cita Almacenada Correctamente'
+        })
     } catch (error) {
         console.log(error)
     }

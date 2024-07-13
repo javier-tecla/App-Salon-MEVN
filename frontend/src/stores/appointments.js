@@ -10,6 +10,7 @@ export const useAppointmentsStore = defineStore('appointments', () => {
     const date = ref('')
     const hours = ref([])
     const time = ref('')
+    const getAppointmentsByDate = ref([])
 
     const toast = inject('toast')
     const router = useRouter()
@@ -23,8 +24,11 @@ export const useAppointmentsStore = defineStore('appointments', () => {
     })
 
     watch(date, async () => {
+        if(date.value === '') return
         // Obtenemos la citas
         const { data } = await AppointmentAPI.getByDate(date.value)
+        getAppointmentsByDate.value = data
+
         console.log(data)
     })
 
@@ -86,6 +90,12 @@ export const useAppointmentsStore = defineStore('appointments', () => {
             return date.value ? true : false
         })
 
+        const disableTime = computed(() => {
+            return (hour) => {
+                return getAppointmentsByDate.value.find(appointment => appointment.time === hour)
+            }
+        })
+
     return {
         services,
         date,
@@ -97,6 +107,7 @@ export const useAppointmentsStore = defineStore('appointments', () => {
         noServicesSelected,
         totalAmount,
         isValidReservation,
-        isDateSelected
+        isDateSelected,
+        disableTime
     }
 })

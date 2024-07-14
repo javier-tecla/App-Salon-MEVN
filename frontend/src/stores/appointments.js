@@ -32,7 +32,6 @@ export const useAppointmentsStore = defineStore('appointments', () => {
         // Obtenemos la citas
         const { data } = await AppointmentAPI.getByDate(date.value)
         
-
         if(appointmentId.value) {
             getAppointmentsByDate.value = data.filter( appointment => appointment._id !== appointmentId.value)
             time.value = data.filter( appointment => appointment._id === appointmentId.value)[0].time
@@ -137,6 +136,7 @@ export const useAppointmentsStore = defineStore('appointments', () => {
         setSelectedAppointment,
         onServiceSelected,
         saveAppointment,
+        clearAppointmentData,
         isServiceSelected,
         noServicesSelected,
         totalAmount,

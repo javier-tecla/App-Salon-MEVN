@@ -1,8 +1,18 @@
 import { RouterView, RouterLink } from 'vue-router';
 <script setup>
+    import { onMounted } from 'vue'
     import { useRoute } from 'vue-router'
-
     const route = useRoute()
+
+    const { id } = route.params
+
+    onMounted(async () => {
+        try {
+           console.log(id)
+        } catch (error) {
+            console.log(error)
+        }
+    })
 </script>
 
 

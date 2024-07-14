@@ -12,7 +12,7 @@ export const useAppointmentsStore = defineStore('appointments', () => {
     const date = ref('')
     const hours = ref([])
     const time = ref('')
-    const getAppointmentsByDate = ref([])
+    const appointmentsByDate = ref([])
 
     const toast = inject('toast')
     const router = useRouter()
@@ -33,10 +33,10 @@ export const useAppointmentsStore = defineStore('appointments', () => {
         const { data } = await AppointmentAPI.getByDate(date.value)
         
         if(appointmentId.value) {
-            getAppointmentsByDate.value = data.filter( appointment => appointment._id !== appointmentId.value)
+            appointmentsByDate.value = data.filter( appointment => appointment._id !== appointmentId.value)
             time.value = data.filter( appointment => appointment._id === appointmentId.value)[0].time
         } else {
-            getAppointmentsByDate.value = data
+            appointmentsByDate.value = data
         }
     })
 
@@ -104,6 +104,24 @@ export const useAppointmentsStore = defineStore('appointments', () => {
             time.value = ''
         }
 
+        async function cancelAppointment(id) {
+            if(confirm('¿Deseas cancelar esta cita?')) {
+            try {
+                const { data } = await AppointmentAPI.delete(id)
+                toast.open({
+                    message: data.msg,
+                    type: 'success'
+                })
+                user.userAppointments = user.userAppointments.filter( appointment => appointment._id !== id)
+            } catch (error) {
+                toast.open({
+                    message: error.response.data.msg,
+                    type: 'error'
+                })
+            }
+        }
+    }
+
         const isServiceSelected = computed(() => {
             return (id) => services.value.some( service => service._id === id )
         })
@@ -124,7 +142,7 @@ export const useAppointmentsStore = defineStore('appointments', () => {
 
         const disableTime = computed(() => {
             return (hour) => {
-                return getAppointmentsByDate.value.find(appointment => appointment.time === hour)
+                return appointmentsByDate.value.find(appointment => appointment.time === hour)
             }
         })
 
@@ -137,6 +155,7 @@ export const useAppointmentsStore = defineStore('appointments', () => {
         onServiceSelected,
         saveAppointment,
         clearAppointmentData,
+        cancelAppointment,
         isServiceSelected,
         noServicesSelected,
         totalAmount,

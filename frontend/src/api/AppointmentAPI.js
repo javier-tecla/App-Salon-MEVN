@@ -13,6 +13,9 @@ export default {
     },
     getById(id) {
         return api.get(`/appointments/${id}`)
+    },
+    update(id, data) {
+        return api.put(`/appointments/${id}`, data)
     }
 
 }

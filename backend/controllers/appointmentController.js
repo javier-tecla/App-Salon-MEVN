@@ -49,7 +49,7 @@ const getAppointmentById = async(req, res) => {
     if(validateObjectId(id, res)) return
 
     // Validar que exista
-    const appointment = await Appointment.findById(id)
+    const appointment = await Appointment.findById(id).populate('services')
     if(!appointment) {
         return handleNotFoundError('La Cita no existe', res)
     }

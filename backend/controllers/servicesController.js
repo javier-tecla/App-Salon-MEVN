@@ -1,5 +1,5 @@
-import Services from "../models/Services.js";
-import { validateObjectId, handleNotFoundError } from "../utils/index.js";
+import Services from "../models/Services.js"
+import { validateObjectId, handleNotFoundError } from "../utils/index.js"
 
 const createService = async (req, res) => {
   if (Object.values(req.body).includes("")) {

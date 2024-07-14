@@ -72,7 +72,6 @@ router.beforeEach( async (to, from, next) => {
     try {
       await AuthAPI.auth()
       next()
-      console.log(data)
     } catch (error) {
       next({name: 'login'})
     }

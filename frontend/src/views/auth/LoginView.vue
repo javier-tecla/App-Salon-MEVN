@@ -47,7 +47,7 @@ import { useRouter } from 'vue-router'
 
         <FormKit
             type="password"
-            label="password"
+            label="Password"
             name="password"
             placeholder="Password de Usuario"
             validation="required"

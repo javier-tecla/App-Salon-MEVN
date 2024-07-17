@@ -1,5 +1,5 @@
 import { createTransport } from "../config/nodemailer.js"
-import { formatDate } from '../utils/index.js'
+
 
 export async function sendEmailNewAppointment({date, time }) {
     const transporter = createTransport(

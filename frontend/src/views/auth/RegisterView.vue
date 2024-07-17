@@ -63,7 +63,7 @@
 
         <FormKit
             type="password"
-            label="password"
+            label="Password"
             name="password"
             placeholder="Password de Usuario - Min 8 Caracteres"
             validation="required|length:8"

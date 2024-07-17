@@ -31,7 +31,7 @@ const generateJWT = (id) => {
 }
 
 function formatDate(date) {
-    return format(date, 'PPPP', {locale: es})
+    return format(date, 'PPPP', { locale: es })
 }
 
 export {

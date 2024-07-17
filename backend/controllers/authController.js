@@ -136,7 +136,7 @@ const verifyPasswordResetToken = async (req, res) => {
   const isValidToken = await User.findOne({token})
   if(!isValidToken) {
     const error = new Error('Hubo un error, Token no válido')
-    res.status(400).json({msg: error.message})
+    return res.status(400).json({msg: error.message})
   }
   res.json({msg: 'Token Válido'})
 }

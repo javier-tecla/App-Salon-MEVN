@@ -14,7 +14,8 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('../views/admin/AdminLayout.vue')
+      component: () => import('../views/admin/AdminLayout.vue'),
+      meta: { requiresAdmin: true },
     },
     {
       path: '/reservaciones',
@@ -107,6 +108,22 @@ router.beforeEach( async (to, from, next) => {
       } else {
         next()
       }
+    } catch (error) {
+      next({name: 'login'})
+    }
+  } else {
+    next()
+  }
+
+})
+
+router.beforeEach( async (to, from, next) => {
+
+  const requiresAdmin = to.matched.some(url => url.meta.requiresAdmin)
+  if(requiresAdmin) {
+    try {
+      await AuthAPI.admin()
+      next()
     } catch (error) {
       next({name: 'login'})
     }

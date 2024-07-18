@@ -172,6 +172,18 @@ const user = async (req, res) => {
   )
 }
 
+const admin = async (req, res) => {
+  const { user } = req
+  console.log(user)
+  if(!user.admin) {
+    const error = new Error('Acción no válida')
+    return res.status(403).json({msg: error.message})
+  }
+  res.json(
+    user
+  )
+}
+
 export {
      register,
      verifyAccount,
@@ -179,5 +191,6 @@ export {
      forgotPassword,
      verifyPasswordResetToken,
      updatePassword,
-     user
+     user,
+     admin
 }
